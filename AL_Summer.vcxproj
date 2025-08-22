@@ -96,6 +96,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Game\GameScene\GameScene.cpp" />
     <ClCompile Include="Game\GameScene\Entiti\Enemy.cpp" />
     <ClCompile Include="Game\GameScene\MapData\MapChip.cpp" />
+    <ClCompile Include="Game\GameScene\Entiti\Goal.cpp" />
     <ClCompile Include="MatchaEngine\Graphics\DirectionalLightManager.cpp" />
     <ClCompile Include="MatchaEngine\Input\GamePadInput.cpp" />
     <ClCompile Include="MatchaEngine\GameObjects\Line.cpp" />
@@ -180,6 +181,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Game\GameScene\GameScene.h" />
     <ClInclude Include="Game\GameScene\Entiti\Enemy.h" />
     <ClInclude Include="Game\GameScene\MapData\MapChip.h" />
+    <ClInclude Include="Game\GameScene\Entiti\Goal.h" />
     <ClInclude Include="MatchaEngine\Graphics\DirectionalLightManager.h" />
     <ClInclude Include="MatchaEngine\Input\GamePadInput.h" />
     <ClInclude Include="MatchaEngine\GameObjects\Line.h" />

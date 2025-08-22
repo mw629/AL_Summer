@@ -7,6 +7,10 @@ private:
 	Sprite* backScreen;
 	Transform uvTransform = { {1.0f,1.0f,1.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f} };
 
+	Input input;
+
+	bool isFinish ;
+
 public:
 
 	void Initialize();
@@ -14,6 +18,9 @@ public:
 	void Update();
 
 	void Draw();
+
+
+	bool IsFinished() { return isFinish; }
 
 };
 

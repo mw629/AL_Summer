@@ -48,6 +48,7 @@ void GameScene::Update() {
 
 	player->Update(camera->GetViewMatrix());
 
+
 }
 
 void GameScene::Draw() {

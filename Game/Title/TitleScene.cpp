@@ -14,6 +14,11 @@ void TitleScene::Initialize(){
 void TitleScene::Update(){
 	uvTransform.translate.x += 1.0f/(60.0f*3.0f);
 	backScreen->SetUVTransfotm(uvTransform);
+
+	if (input.PushKey(DIK_SPACE)) {
+		isFinish = true;
+	}
+
 }
 
 void TitleScene::Draw(){

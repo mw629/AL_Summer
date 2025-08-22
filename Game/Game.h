@@ -6,6 +6,15 @@ class Game
 {
 private:
 
+    enum Scene
+    {
+        kUnknown,
+        kTitle,
+        kGame,
+    };
+    Scene scene = Scene::kGame;
+
+
     TitleScene* titleScene;
 	GameScene* gameScene;
 
@@ -17,6 +26,13 @@ public:
     void Initialize();
     void Update();
     void Draw();
+
+    void ChangeScene();
+
+    void UpdateScene();
+
+    void DrawScene();
+
 
 };
 

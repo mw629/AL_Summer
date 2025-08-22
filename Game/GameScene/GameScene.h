@@ -14,6 +14,7 @@ private:
 
     Player* player;
 
+    bool isFinish = false;
 
 public:  
     GameScene();
@@ -24,4 +25,6 @@ public:
     void Initialize();  
     void Update();  
     void Draw();  
+
+    bool IsFinished() { return isFinish; }
 };
