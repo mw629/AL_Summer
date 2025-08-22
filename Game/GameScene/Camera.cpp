@@ -12,8 +12,6 @@ void Camera::ImGui()
 }
 
 void Camera::Initialize() {
-	debugCamera = new DebugCamera();
-	debugCamera->Initialize();
 	cameraTransform = { {1.0f,1.0f,1.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,-50.0f} };
 	debugcameraTransform = { {1.0f,1.0f,1.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,-50.0f} };
 }

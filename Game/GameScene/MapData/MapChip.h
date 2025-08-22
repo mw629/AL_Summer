@@ -11,6 +11,7 @@ private:
 	const int blockSize = 2.0f;
 
 public:
+	~MapChip();
 
 	void Initialize();
 

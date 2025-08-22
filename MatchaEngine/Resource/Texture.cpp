@@ -23,8 +23,8 @@ int Texture::CreateTexture(const std::string& filePath)
 	//Textureを読み込んで転送する//
 	DirectX::ScratchImage mipImages = LoadTexture(filePath);
 
-	if (textureLoader_->CheckFilePath(filePath)) {
-		return textureLoader_->GetIndex(filePath);
+	if (textureLoader_->CheckFilePath(filePath) > 0) {
+		return textureLoader_->CheckFilePath(filePath);
 	}
 
 	const DirectX::TexMetadata& metaData = mipImages.GetMetadata();
@@ -48,7 +48,7 @@ int Texture::CreateTexture(const std::string& filePath)
 
 	device_->CreateShaderResourceView(textureResource.Get(), &srvDesc, textureSrvHandleCPU);
 
-	return textureLoader_->GetLastIndex() - 1;
+	return textureLoader_->GetLastIndex()-1;
 }
 
 void Texture::TextureList()

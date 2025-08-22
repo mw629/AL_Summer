@@ -19,6 +19,7 @@ private:
 
 
 public:
+	~Player();
 
 	void Initialize(Vector3 pos, std::vector<std::vector<int>> mapData);
 

@@ -3,9 +3,9 @@
 #include "Math/Calculation.h"
 
 void DebugCamera::Initialize() {
-    eye_ = Vector3{ 0.0f, 5.0f, -10.0f };
-    target_ = Vector3{ 0.0f, 0.0f, 0.0f };
-    up_ = Vector3{ 0.0f, 1.0f, 0.0f };
+    eye_ = { 0.0f, 5.0f, -10.0f };
+    target_ = { 0.0f, 0.0f, 0.0f };
+    up_ = { 0.0f, 1.0f, 0.0f };
 
     Vector3 diff = eye_ - target_;
     radius_ = Length(diff);
@@ -14,7 +14,6 @@ void DebugCamera::Initialize() {
 
     mousePrevPos_ = { 0, 0 };
     isMiddleMouseButtonPressed_ = false;
-
 }
 
 void DebugCamera::Update(Input* input) {

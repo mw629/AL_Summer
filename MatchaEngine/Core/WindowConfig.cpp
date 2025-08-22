@@ -5,16 +5,14 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 
 LRESULT WindowConfig::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	if (ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam)) { return true; }
-	//メッセージに応じてゲーム固有の処理を行う
+	if (ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam)) {
+		return 0; // ImGuiが処理した場合は0を返す
+	}
 	switch (msg) {
-		//ウィンドウが破棄された
 	case WM_DESTROY:
-		//OSんい対して、アプリ終了を伝える
 		PostQuitMessage(0);
 		return 0;
 	}
-	//標準のメッセージ処理を行う
 	return DefWindowProc(hwnd, msg, wparam, lparam);
 }
 

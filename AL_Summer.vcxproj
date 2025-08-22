@@ -96,6 +96,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Game\GameScene\GameScene.cpp" />
     <ClCompile Include="Game\GameScene\Entiti\Enemy.cpp" />
     <ClCompile Include="Game\GameScene\MapData\MapChip.cpp" />
+    <ClCompile Include="MatchaEngine\Graphics\DirectionalLightManager.cpp" />
     <ClCompile Include="MatchaEngine\Input\GamePadInput.cpp" />
     <ClCompile Include="MatchaEngine\GameObjects\Line.cpp" />
     <ClCompile Include="MatchaEngine\GameObjects\Grid.cpp" />
@@ -145,6 +146,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="MatchaEngine\GameObjects\Triangle.cpp" />
     <ClCompile Include="Game\GameScene\Entiti\Player.cpp" />
     <ClCompile Include="Game\GameScene\MapData\SkyDome.cpp" />
+    <ClCompile Include="Game\Title\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MatchaEngine\Graphics\Shader\Line.PS.hlsl">
@@ -178,6 +180,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Game\GameScene\GameScene.h" />
     <ClInclude Include="Game\GameScene\Entiti\Enemy.h" />
     <ClInclude Include="Game\GameScene\MapData\MapChip.h" />
+    <ClInclude Include="MatchaEngine\Graphics\DirectionalLightManager.h" />
     <ClInclude Include="MatchaEngine\Input\GamePadInput.h" />
     <ClInclude Include="MatchaEngine\GameObjects\Line.h" />
     <ClInclude Include="MatchaEngine\GameObjects\Grid.h" />
@@ -228,6 +231,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="MatchaEngine\GameObjects\Triangle.h" />
     <ClInclude Include="Game\GameScene\Entiti\Player.h" />
     <ClInclude Include="Game\GameScene\MapData\SkyDome.h" />
+    <ClInclude Include="Game\Title\TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="externals\imgui\LICENSE.txt" />

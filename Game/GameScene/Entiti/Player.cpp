@@ -1,5 +1,10 @@
 #include "Player.h"
 
+Player::~Player()
+{
+	delete playerModel;
+}
+
 void Player::Initialize(Vector3 pos, std::vector<std::vector<int>> mapData) {
 
 	mapData_ = mapData;
@@ -65,6 +70,20 @@ void Player::Update(Matrix4x4 viewMatrix) {
 				// 微小な速度もリセット
 				velocity.y = 0.0f;
 				isOnGround = true;
+			}
+		}
+
+		float headY = transform.translate.y + playerSize / 2.0f;
+		mapY = static_cast<int>(headY / blockSize);
+		mapX = static_cast<int>(transform.translate.x / blockSize);
+
+		if (mapY >= 0 && mapY < (int)mapData_.size() &&
+			mapX >= 0 && mapX < (int)mapData_[0].size())
+		{
+			if (mapData_[mapY][mapX] == 1 && velocity.y > 0.0f) {
+				// 上に当たった（頭ぶつけ）
+				transform.translate.y = mapY * blockSize - playerSize / 2.0f;
+				velocity.y = 0.0f;
 			}
 		}
 	}

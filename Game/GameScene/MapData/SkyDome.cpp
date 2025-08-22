@@ -1,5 +1,10 @@
 #include "SkyDome.h"
 
+SkyDome::~SkyDome()
+{
+	delete skydomeModel;
+}
+
 void SkyDome::Initialize() {
 	ModelData modelData = LoadObjFile("resources/skydome", "skydome.obj");
 	Texture* texture = new Texture();

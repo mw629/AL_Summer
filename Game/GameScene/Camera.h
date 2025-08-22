@@ -7,7 +7,6 @@ class Camera
 {
 private:
 
-    DebugCamera* debugCamera;
     bool debugcameraFrag;
     Transform debugcameraTransform;
     

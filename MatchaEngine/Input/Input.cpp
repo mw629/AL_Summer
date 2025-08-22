@@ -3,15 +3,10 @@
 #include <cstdint>
 #include <cstring> 
 
-namespace {
-	BYTE key_[256] = {};
-	BYTE prevKey_[256] = {};
-
-}
 
 
 void Input::Initialize(WNDCLASS wc, HWND hwnd) {
-	directInput_ = nullptr;
+	directInput_=nullptr;
 	result = DirectInput8Create(
 		wc.hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8,
 		(void**)&directInput_, nullptr);
@@ -56,7 +51,7 @@ void Input::Updata()
 	keyboard->Acquire();
 	keyboard->GetDeviceState(sizeof(key_), key_);
 	//マウスの取得
-	std::memcpy(&prevMouseState, &mouseState, sizeof(mouseState));
+	std::memcpy(&prevMouseState,&mouseState, sizeof(mouseState));
 	mouse->Acquire();
 	mouse->GetDeviceState(sizeof(DIMOUSESTATE), &mouseState);
 }
@@ -90,13 +85,6 @@ bool Input::FreeMouse(uint32_t bottom)
 {
 	return !(mouseState.rgbButtons[bottom] & 0x80);
 }
-
-Vector2i Input::GetMouseDelta() { return Vector2i(mouseState.lX, mouseState.lY); }
-
-int Input::GetMouseWheel() { return mouseState.lZ; }
-
-BYTE Input::GetKey(int keyNum) { return key_[keyNum]; }
-
 
 
 

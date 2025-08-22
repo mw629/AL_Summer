@@ -2,6 +2,17 @@
 
 
 
+MapChip::~MapChip()
+{
+	for (const auto& row : models_) {
+		for (const auto& model : row) {
+			if (model) {
+				delete model;
+			}
+		}
+	}
+}
+
 void MapChip::Initialize() {
 
 	Texture* texture = new Texture();

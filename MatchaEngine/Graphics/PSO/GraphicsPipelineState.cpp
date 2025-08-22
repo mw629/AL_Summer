@@ -47,7 +47,7 @@ void GraphicsPipelineState::PSOSetting(std::ostream& os, ID3D12Device* device)
 	inputLayout_->CreateInputLayout();
 	Log(os, "InputLayoutの生成完了\n");
 	//BlendStateの設定を行う//
-	blendState_->CreateBlendDesc(kBlendModeNone);
+	blendState_->CreateBlendDesc();
 	Log(os, "BlendStateの生成完了\n");
 	//RasterizerStateの設定を行う//
 	rasterizerState_->CreateRasterizerState();

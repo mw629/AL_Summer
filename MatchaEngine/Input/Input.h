@@ -14,6 +14,9 @@ private:
 	HRESULT result{};
 	IDirectInputDevice8* keyboard{};
 	
+	BYTE key_[256] = {};  
+	BYTE prevKey_[256] = {};  
+
 	IDirectInputDevice8* mouse{};
 
 	DIMOUSESTATE mouseState{};  
@@ -25,7 +28,6 @@ public:
 	void CreateInpuDevice();  
 	void SetInputType();  
 	void SetExclusionLevel(HWND hwnd);  
-
 	void Updata();  
 
 	//押して瞬間  
@@ -46,8 +48,8 @@ public:
 	//離してる  
 	bool FreeMouse(uint32_t key);  
 	//マウスの移動  
-	Vector2i GetMouseDelta();
-	int GetMouseWheel();
+	Vector2i GetMouseDelta() { return Vector2i(mouseState.lX, mouseState.lY); }  
+	int GetMouseWheel()const { return mouseState.lZ; }
 	
-	BYTE GetKey(int keyNum);
+	BYTE GetKey(int keyNum)const { return key_[keyNum]; }
 };

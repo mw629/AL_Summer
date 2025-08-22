@@ -4,8 +4,6 @@
 #include "../externals/imgui/imgui_impl_dx12.h"
 #include "../externals/imgui/imgui_impl_win32.h"
 
-
-
 Engine::~Engine()
 {
 
@@ -18,7 +16,7 @@ Engine::Engine(int32_t kClientWidth, int32_t kClientHeight)
 
 	SetUnhandledExceptionFilter(ExportDump);
 	logStream = CurrentTimestamp();
-	
+
 	//DebugLayer//
 #ifdef _DEBUG
 	Microsoft::WRL::ComPtr<ID3D12Debug1> debugController = nullptr;
@@ -50,7 +48,13 @@ Engine::Engine(int32_t kClientWidth, int32_t kClientHeight)
 
 }
 
-
+void Engine::ImGuiDraw()
+{
+	ImGui::SliderFloat4("LightColor", &light_.color.x, 0.01f, 1.0f);
+	ImGui::SliderFloat3("LightDirection", &light_.direction.x, 0.01f, 1.0f);
+	ImGui::SliderFloat("LightIntensity", &light_.intensity, 0.01f, 1.0f);
+	directinalLight.get()->SetDirectionalLight(light_);
+}
 
 void Engine::Setting()
 {
@@ -98,10 +102,10 @@ void Engine::Setting()
 
 	depthStencil->CreateDepthStencil(graphics->GetDevice(), kClientWidth_, kClientHeight_);
 
-	
+
 	graphicsPipelineState.get()->CreateALLPSO(logStream, graphics.get()->GetDevice());
 
-	directinalLight = std::make_unique<DirectinalLight>();
+	directinalLight = std::make_unique<DirectionalLightManager>();
 	directinalLight->CreateDirectinalLight(graphics->GetDevice());
 
 	//ビューポート
@@ -124,7 +128,7 @@ void Engine::Setting()
 
 	Draw::Initialize(command.get()->GetCommandList());
 	Texture::Initalize(graphics->GetDevice(), command->GetCommandList(), descriptorHeap.get(), textureLoader.get());
-	
+
 
 	Line::SetDevice(graphics.get()->GetDevice());
 	Grid::SetDevice(graphics.get()->GetDevice());
@@ -187,7 +191,7 @@ void Engine::NewFrame() {
 }
 
 void Engine::EndFrame() {
-	
+
 	//コマンドリストの内容を確定させる。すべてのコマンドを積んでからCloseすること
 	hr_ = command->GetCommandList()->Close();
 	assert(SUCCEEDED(hr_));
@@ -226,5 +230,4 @@ void Engine::End() {
 	//COMの終了処理
 	CoUninitialize();
 }
-
 
