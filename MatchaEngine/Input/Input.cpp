@@ -3,7 +3,10 @@
 #include <cstdint>
 #include <cstring> 
 
-
+namespace {
+	BYTE g_key[256];
+	BYTE g_prevKey[256];
+}
 
 void Input::Initialize(WNDCLASS wc, HWND hwnd) {
 	directInput_=nullptr;
@@ -54,21 +57,22 @@ void Input::Updata()
 	std::memcpy(&prevMouseState,&mouseState, sizeof(mouseState));
 	mouse->Acquire();
 	mouse->GetDeviceState(sizeof(DIMOUSESTATE), &mouseState);
+	SetKey(key_, prevKey_);
 }
 
 bool Input::PushKey(uint32_t key)
 {
-	return (key_[key] & 0x80) && !(prevKey_[key] & 0x80);
+	return (g_key[key] & 0x80) && !(g_prevKey[key] & 0x80);
 }
 bool Input::PressKey(uint32_t key) {
-	return (key_[key] & 0x80);
+	return (g_key[key] & 0x80);
 }
 bool Input::ReleaseKey(uint32_t key) {
-	return !(key_[key] & 0x80) && (prevKey_[key] & 0x80);
+	return !(g_key[key] & 0x80) && (g_prevKey[key] & 0x80);
 }
 bool Input::FreeKey(uint32_t key)
 {
-	return !(key_[key] & 0x80);
+	return !(g_key[key] & 0x80);
 }
 
 bool Input::PushMouse(uint32_t bottom)
@@ -84,6 +88,14 @@ bool Input::ReleaseMouse(uint32_t bottom) {
 bool Input::FreeMouse(uint32_t bottom)
 {
 	return !(mouseState.rgbButtons[bottom] & 0x80);
+}
+
+void Input::SetKey(BYTE key[256],BYTE prevKey[256])
+{
+	for (int i = 0; i < 256; i++) {
+		g_key[i] = key[i];
+		g_prevKey[i] = prevKey[i];
+	}
 }
 
 

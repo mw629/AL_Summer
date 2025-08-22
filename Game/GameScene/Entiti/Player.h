@@ -5,7 +5,6 @@ class Player
 {
 private:
 
-	Input input;
 
 	std::vector<std::vector<int>> mapData_;
 	float blockSize = 2.0f;
@@ -27,11 +26,6 @@ public:
 
 	void Move();
 
-	void CheckCollision();
-	void CheckCollisionUp();
-	void CheckCollisionDown();
-	void CheckCollisionLeft();
-	void CheckCollisionRight();
 
 	bool IsHitBlock(Vector3 pos, const std::vector<std::vector<int>>& map);
 

@@ -95,13 +95,13 @@ void Player::Update(Matrix4x4 viewMatrix) {
 void Player::Move()
 {
 	// 入力処理
-	if (input.PressKey(DIK_A)) {
+	if (Input::PressKey(DIK_A)) {
 		velocity.x -= 1.0f / 60.0f;
 	}
-	if (input.PressKey(DIK_D)) {
+	if (Input::PressKey(DIK_D)) {
 		velocity.x += 1.0f / 60.0f;
 	}
-	if (input.PushKey(DIK_SPACE) && isOnGround) {
+	if (Input::PushKey(DIK_SPACE) && isOnGround) {
 		velocity.y = 0.5f;
 		isOnGround = false;
 	}
