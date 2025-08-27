@@ -2,6 +2,7 @@
 #include "MapData/SkyDome.h"
 
 #include "Entiti/Player.h"
+#include "Entiti/Enemy.h"
 #include "MapData/MapChip.h"
 #include "Camera.h"
 #include "Entiti/Goal.h"
@@ -24,6 +25,8 @@ private:
 
     Player* player_;
 
+    std::list<Enemy*> enemies_;
+
     Goal* goal_;
 
     bool isClear_ =false;
@@ -41,7 +44,7 @@ public:
 
     void CheckAllCollisions();
 
-
+    void EnemyList(std::vector<std::vector<int>> mapData);
 
     bool IsFinished() { return isFinish_; }
 

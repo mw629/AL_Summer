@@ -40,6 +40,8 @@ void GameScene::Initialize() {
 	Vector3 playerPos = map_->MapPostion(3, 1);
 	player_->Initialize(playerPos,map_->GetMapData());
 
+	EnemyList(map_->GetMapData());
+
 	goal_ = new Goal;
 	Vector3 goalPos= map_->MapPostion(29,15);
 	goal_->Initialize(goalPos);
@@ -55,6 +57,19 @@ void GameScene::Update() {
 
 	fede_->Update();
 	timer_->Update();
+
+	for (Enemy* enemy : enemies_) {
+		if (enemy) {
+			enemy->Update(camera_->GetViewMatrix());
+		}
+	}
+	/*enemies_.remove_if([](Enemy* enemy) {
+		if (enemy) {
+			delete enemy;
+			return true;
+		}
+		return false;
+		});*/
 
 	camera_->Update(player_);
 	
@@ -75,6 +90,12 @@ void GameScene::Draw() {
 
 	map_->Draw();
 	skyDome_->Draw();
+
+	for (Enemy* enemy : enemies_) {
+		if (enemy) {
+			enemy->Draw();
+		}
+	}
 
 	player_->Draw();
 	goal_->Draw();
@@ -109,6 +130,23 @@ void GameScene::CheckAllCollisions() {
 	}
 
 #pragma endregion
+}
+
+void GameScene::EnemyList(std::vector<std::vector<int>> mapData)
+{
+	for (int i = 0; i < mapData.size(); i++) {
+		for (int j = 0; j < mapData[0].size(); j++) {
+			if (mapData[i][j] == 2) {
+				Enemy* newEnemy;
+				newEnemy = new Enemy();
+				Vector3 Pos = map_->MapPostion(j, i);
+				newEnemy->Initialize(Pos);
+				enemies_.push_back(newEnemy);
+			}
+		}
+	}
+	
+
 }
 
 

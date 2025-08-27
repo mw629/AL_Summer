@@ -74,6 +74,7 @@ void Game::UpdateScene() {
 		break;
 	case Scene::kGame:
 		gameScene->Update();
+
 		break;
 	case Scene::kClear:
 		clearScene->Update();

@@ -210,7 +210,7 @@ bool Player::IsHitBlock(Vector3 pos, const std::vector<std::vector<int>>& map) {
 	if (mapY < 0 || mapY >= map.size() || mapX < 0 || mapX >= map[0].size()) {
 		return false;
 	}
-	return map[mapY][mapX]; // true = ブロックあり
+	return (map[mapY][mapX] == 1);// true = ブロックあり
 }
 
 void Player::OnCollision(const Enemy* enemy) {
