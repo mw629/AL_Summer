@@ -8,6 +8,7 @@ class Goal;
 class Player
 {
 private:
+	std::unique_ptr<Texture> texture;
 
 	enum class LRDirection {
 		kRight,
@@ -37,6 +38,9 @@ private:
 	float rushTime = 0.1f;
 	float echoEffectTime = 0.05f;
 
+	Sprite* attackLimitSprite;
+	int attackLimit=3;
+	int attackLimitImage[4];
 
 	bool isOnGround=false;
 	bool isAttack = false;

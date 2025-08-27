@@ -6,7 +6,7 @@ Player::~Player()
 }
 
 void Player::Initialize(Vector3 pos, std::vector<std::vector<int>> mapData) {
-	std::unique_ptr<Texture> texture = std::make_unique<Texture>();
+	texture = std::make_unique<Texture>();
 
 	mapData_ = mapData;
 	ModelData modelData = LoadObjFile("resources/Player", "Player.obj");
@@ -15,11 +15,22 @@ void Player::Initialize(Vector3 pos, std::vector<std::vector<int>> mapData) {
 	playerModel->Initialize(modelData, texture->TextureData(index));
 	playerModel->CreateModel();
 	transform.translate = pos;
+
+
+	attackLimitImage[0] = texture->CreateTexture("resources/Gauge/0Gauge.png");
+	attackLimitImage[1] = texture->CreateTexture("resources/Gauge/1Gauge.png");
+	attackLimitImage[2] = texture->CreateTexture("resources/Gauge/2Gauge.png");
+	attackLimitImage[3] = texture->CreateTexture("resources/Gauge/3Gauge.png");
+
+	attackLimitSprite = new Sprite();
+	attackLimitSprite->Initialize(texture->TextureData(attackLimitImage[3]));
+	attackLimitSprite->CreateSprite();
+	attackLimitSprite->SetSize({ 1000.0f,480.0f }, { 1280.0f,720.0f });
+	attackLimitSprite->SettingWvp();
+
 }
 
 void Player::Update(Matrix4x4 viewMatrix) {
-
-
 
 	if (isAttack) {
 		Attack();
@@ -96,7 +107,7 @@ void Player::Update(Matrix4x4 viewMatrix) {
 		}
 
 	}
-
+	attackLimitSprite->SetTexture(texture->TextureData(attackLimitImage[attackLimit]));
 	playerModel->SetTransform(transform);
 	playerModel->SettingWvp(viewMatrix);
 }
@@ -114,8 +125,9 @@ void Player::Move()
 		velocity.y = 0.5f;
 		isOnGround = false;
 	}
-	if (Input::PressKey(DIK_SPACE) && !isAttack) {
+	if (Input::PressKey(DIK_SPACE) && !isAttack && attackLimit != 0) {
 		isAttack = true;
+		attackLimit--;
 	}
 
 }
@@ -162,11 +174,12 @@ void Player::Attack()
 
 		if (attackCount_ >= echoEffectTime) {
 			isAttack = false;
+			velocity = { 0.0f,0.0f,0.0f };
 			attackCount_ = 0;
 			attackPhase = Player::Charge;
 		}
 	}
-	 break;
+	   break;
 	}
 }
 
@@ -213,6 +226,7 @@ void Player::OnCollision(const Enemy* enemy) {
 
 void Player::Draw() {
 	Draw::DrawObj(playerModel);
+	Draw::DrawSprite(attackLimitSprite);
 }
 
 AABB Player::GetAABB() {
