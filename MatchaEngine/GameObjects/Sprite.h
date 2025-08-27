@@ -42,10 +42,14 @@ public:
 	void CreateSprite();
 
 	void SettingWvp();
+	void SettingWvp(Matrix4x4 viewMatrix);
 
 	void SetSize(Vector2 leftTop, Vector2 rigthBottom);
-	void SetTransfotm(Transform transform);
+	void SetTransform(Transform transform);
+	void SetColor(Vector4 Color);
 	void SetUVTransfotm(Transform transform);
+	void SetTexture(D3D12_GPU_DESCRIPTOR_HANDLE textureSrvHandleGPU);
+
 
 	void SetMaterialLighting(bool isActiv) { material_->SetMaterialLighting(isActiv); }
 

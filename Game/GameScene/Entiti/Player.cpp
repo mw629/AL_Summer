@@ -6,11 +6,10 @@ Player::~Player()
 }
 
 void Player::Initialize(Vector3 pos, std::vector<std::vector<int>> mapData) {
+	std::unique_ptr<Texture> texture = std::make_unique<Texture>();
 
 	mapData_ = mapData;
-
 	ModelData modelData = LoadObjFile("resources/Player", "Player.obj");
-	Texture* texture = new Texture();
 	int index = texture->CreateTexture(modelData.material.textureDilePath);
 	playerModel = new Model();
 	playerModel->Initialize(modelData, texture->TextureData(index));
@@ -35,21 +34,6 @@ void Player::Update(Matrix4x4 viewMatrix) {
 			move.y / steps,
 			0.0f
 		};
-
-		// X方向（左右判定）
-		transform.translate.x += stepMove.x;
-		if (stepMove.x > 0) {
-			if (IsHitBlock({ transform.translate.x + playerSize/2.0f, transform.translate.y }, mapData_)) {
-				transform.translate.x -= stepMove.x;
-				velocity.x = 0;
-			}
-		}
-		else if (stepMove.x < 0) {
-			if (IsHitBlock({ transform.translate.x - playerSize / 2.0f, transform.translate.y }, mapData_)) {
-				transform.translate.x -= stepMove.x;
-				velocity.x = 0;
-			}
-		}
 
 		// Y方向（上下判定＆着地時の位置補正）
 		transform.translate.y += stepMove.y;
@@ -86,6 +70,22 @@ void Player::Update(Matrix4x4 viewMatrix) {
 				velocity.y = 0.0f;
 			}
 		}
+
+		// X方向（左右判定）
+		transform.translate.x += stepMove.x;
+		if (stepMove.x > 0) {
+			if (IsHitBlock({ transform.translate.x + playerSize / 2.0f, transform.translate.y }, mapData_)) {
+				transform.translate.x -= stepMove.x;
+				velocity.x = 0;
+			}
+		}
+		else if (stepMove.x < 0) {
+			if (IsHitBlock({ transform.translate.x - playerSize / 2.0f, transform.translate.y }, mapData_)) {
+				transform.translate.x -= stepMove.x;
+				velocity.x = 0;
+			}
+		}
+
 	}
 	
 	playerModel->SetTransform(transform);
@@ -101,7 +101,7 @@ void Player::Move()
 	if (Input::PressKey(DIK_D)) {
 		velocity.x += 1.0f / 60.0f;
 	}
-	if (Input::PushKey(DIK_SPACE) && isOnGround) {
+	if (Input::PushKey(DIK_W) && isOnGround) {
 		velocity.y = 0.5f;
 		isOnGround = false;
 	}
@@ -119,9 +119,26 @@ bool Player::IsHitBlock(Vector3 pos, const std::vector<std::vector<int>>& map) {
 	return map[mapY][mapX]; // true = ブロックあり
 }
 
+void Player::OnCollision(const Enemy* enemy) {
+	(void)enemy;
+	// velocity_ =Add(velocity_,knockback);
+	/*if (behavior_ != Behavior::kAttack) {
+		isDead_ = true;
+	}*/
+}
+
+
 
 
 void Player::Draw() {
 	Draw::DrawObj(playerModel);
 }
 
+AABB Player::GetAABB() {
+	Vector3 worldPos = transform.translate;
+	AABB aabb;
+	aabb.min = { worldPos.x - playerSize / 2.0f, worldPos.y - playerSize / 2.0f, worldPos.z - playerSize / 2.0f };
+	aabb.max = { worldPos.x + playerSize / 2.0f, worldPos.y + playerSize / 2.0f, worldPos.z + playerSize / 2.0f };
+
+	return aabb;
+}

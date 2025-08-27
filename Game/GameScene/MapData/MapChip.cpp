@@ -15,7 +15,7 @@ MapChip::~MapChip()
 
 void MapChip::Initialize() {
 
-	Texture* texture = new Texture();
+	std::unique_ptr<Texture> texture = std::make_unique<Texture>();
 
 	map_ = LoadMapFromCSV("resources/MapData.csv");
 	ModelData blockModel = LoadObjFile("resources/block", "block.obj");

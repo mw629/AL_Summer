@@ -91,6 +91,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Fede.cpp" />
+    <ClCompile Include="Game\Clear\Clear.cpp" />
     <ClCompile Include="Game\GameScene\Camera.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Game\GameScene\GameScene.cpp" />
@@ -148,6 +150,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Game\GameScene\Entiti\Player.cpp" />
     <ClCompile Include="Game\GameScene\MapData\SkyDome.cpp" />
     <ClCompile Include="Game\Title\TitleScene.cpp" />
+    <ClCompile Include="Game\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MatchaEngine\Graphics\Shader\Line.PS.hlsl">
@@ -176,6 +179,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Fede.h" />
+    <ClInclude Include="Game\Clear\Clear.h" />
     <ClInclude Include="Game\GameScene\Camera.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Game\GameScene\GameScene.h" />
@@ -234,6 +239,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Game\GameScene\Entiti\Player.h" />
     <ClInclude Include="Game\GameScene\MapData\SkyDome.h" />
     <ClInclude Include="Game\Title\TitleScene.h" />
+    <ClInclude Include="Game\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="externals\imgui\LICENSE.txt" />

@@ -36,7 +36,6 @@ Model::~Model()
 
 void Model::Initialize(ModelData modelData,D3D12_GPU_DESCRIPTOR_HANDLE textureSrvHandleGPU)
 {
-	transform_ = {};
 	modelData_ = modelData;
 	textureSrvHandleGPU_ = textureSrvHandleGPU;
 

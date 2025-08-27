@@ -123,6 +123,11 @@ public:
 
 	void End();
 
+	size_t GetProcessMemoryUsage();
+
+	void Debug();
+
+
 	Input* GetInput() { return input.get(); }
 
 	void SetBackColor(Vector4 color) { renderTargetView.get()->SetWindowBackColor(color); }

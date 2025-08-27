@@ -2,8 +2,9 @@
 
 
 void Goal::Initialize(Vector3 pos) {
-	ModelData modelData = LoadObjFile("resources/Player", "Player.obj");
-	Texture* texture = new Texture();
+	std::unique_ptr<Texture> texture = std::make_unique<Texture>();
+
+	ModelData modelData = LoadObjFile("resources/Goal", "Goal.obj");
 	int index = texture->CreateTexture(modelData.material.textureDilePath);
 	goalModel = new Model();
 	goalModel->Initialize(modelData, texture->TextureData(index));
@@ -16,4 +17,15 @@ void Goal::Update(Matrix4x4 viewMatrix) {
 	goalModel->SettingWvp(viewMatrix);
 }
 
-void Goal::Draw() {}
+void Goal::Draw() {
+	Draw::DrawObj(goalModel);
+}
+
+AABB Goal::GetAABB() {
+	Vector3 worldPos = transform.translate;
+	AABB aabb;
+	aabb.min = { worldPos.x - size / 2.0f, worldPos.y - size / 2.0f, worldPos.z - size / 2.0f };
+	aabb.max = { worldPos.x + size / 2.0f, worldPos.y + size / 2.0f, worldPos.z + size / 2.0f };
+
+	return aabb;
+}

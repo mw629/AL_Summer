@@ -1,6 +1,7 @@
 #pragma once
 #include "GameScene/GameScene.h"
 #include "Title/TitleScene.h"
+#include "Clear/Clear.h"
 
 class Game
 {
@@ -11,12 +12,15 @@ private:
         kUnknown,
         kTitle,
         kGame,
+        kClear,
+        kGameOver,
     };
-    Scene scene = Scene::kGame;
+    Scene scene = Scene::kTitle;
 
 
     TitleScene* titleScene;
 	GameScene* gameScene;
+    Clear* clearScene;
 
 public:
 

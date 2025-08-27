@@ -14,7 +14,6 @@ private:
     Matrix4x4 cameraMatrix;
     Matrix4x4 viewMatrix;
 
-    Input input;
 
 
 public:

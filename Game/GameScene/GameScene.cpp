@@ -9,31 +9,43 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
-	delete map;
-	delete skyDome;
-	delete player;
-	delete camera;
+	delete map_;
+	delete skyDome_;
+	delete player_;
+	delete camera_;
 }
 
 void GameScene::ImGui()
 {
-	camera->ImGui();
+#ifdef _DEBUG
+	camera_->ImGui();
+#endif
 }
 
 void GameScene::Initialize() {
 	
+	fede_ = new Fede();
+	fede_->Initalize();
+	fede_->fedestate = Fede::FedeOut;
 
-	map = new MapChip();
-	map->Initialize();
-	skyDome = new SkyDome();
-	skyDome->Initialize();
+	timer_ = new Timer();
+	timer_->Initialize();
 
-	player = new Player;
-	Vector3 playerPos = map->MapPostion(3, 5);
-	player->Initialize(playerPos,map->GetMapData());
+	map_ = new MapChip();
+	map_->Initialize();
+	skyDome_ = new SkyDome();
+	skyDome_->Initialize();
 
-	camera = new Camera();
-	camera->Initialize();
+	player_ = new Player;
+	Vector3 playerPos = map_->MapPostion(3, 1);
+	player_->Initialize(playerPos,map_->GetMapData());
+
+	goal_ = new Goal;
+	Vector3 goalPos= map_->MapPostion(29,15);
+	goal_->Initialize(goalPos);
+
+	camera_ = new Camera();
+	camera_->Initialize();
 
 }
 
@@ -41,23 +53,63 @@ void GameScene::Update() {
 	
 	ImGui();
 
-	camera->Update(player);
+	fede_->Update();
+	timer_->Update();
+
+	camera_->Update(player_);
 	
-	map->Update(camera->GetViewMatrix());
-	skyDome->Update(camera->GetViewMatrix());
+	map_->Update(camera_->GetViewMatrix());
+	skyDome_->Update(camera_->GetViewMatrix());
+	goal_->Update(camera_->GetViewMatrix());
+	player_->Update(camera_->GetViewMatrix());
 
-	player->Update(camera->GetViewMatrix());
+	CheckAllCollisions();
 
+	if (fede_->IsFinished()) {
+		isClear_ = true;
+	}
 
 }
 
 void GameScene::Draw() {
-	
-	map->Draw();
-	skyDome->Draw();
 
-	player->Draw();
+	map_->Draw();
+	skyDome_->Draw();
 
+	player_->Draw();
+	goal_->Draw();
+
+	timer_->Draw();
+
+	fede_->Draw();
 
 }
+
+void GameScene::CheckAllCollisions() {
+#pragma region 自キャラと敵キャラの当たる判定自キャラと敵キャラの当たり判定
+	AABB aabb1, aabb2;
+
+	// 自キャラの座標
+	aabb1 = player_->GetAABB();
+
+	/*for (Enemy* enemy : enemies_) {
+		if (enemy->GetIsCollisionDisabled()) {
+			continue;
+		}
+
+		aabb2 = enemy->GetAABB();
+		if (IsCollision(aabb1, aabb2)) {
+			player_->OnCollision(enemy);
+			enemy->OnCollision(player_);
+		}
+	}*/
+	aabb2 = goal_->GetAABB();
+	if (IsCollision(aabb1, aabb2)) {
+		fede_->fedestate = Fede::FedeIn;
+	}
+
+#pragma endregion
+}
+
+
 

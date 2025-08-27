@@ -3,7 +3,40 @@
 #include <vector>
 #include <string>
 
-///構造体///
+
+//
+// Vector structs
+//
+
+struct Vector2 {
+	float x;
+	float y;
+};
+
+struct Vector2i {
+	int x;
+	int y;
+};
+
+struct Vector3 {
+	float x = 0.0f;
+	float y = 0.0f;
+	float z = 0.0f;
+
+	Vector3 operator+(const Vector3& other) const { return { x + other.x, y + other.y, z + other.z }; }
+	Vector3 operator-(const Vector3& other) const { return { x - other.x, y - other.y, z - other.z }; }
+	Vector3 operator-() const { return { -x, -y, -z }; }
+	Vector3 operator*(const Vector3& other) const { return { x * other.x, y * other.y, z * other.z }; }
+	Vector3 operator*(float scalar) const { return { x * scalar, y * scalar, z * scalar }; }
+	Vector3 operator/(const Vector3& other) const { return { x / other.x, y / other.y, z / other.z }; }
+	Vector3 operator/(float other) const { return { x / other, y / other, z / other }; }
+
+	Vector3& operator=(const Vector3& other) { x = other.x; y = other.y; z = other.z; return *this; }
+	Vector3& operator+=(const Vector3& other) { x += other.x; y += other.y; z += other.z; return *this; }
+	Vector3& operator-=(const Vector3& other) { x -= other.x; y -= other.y; z -= other.z; return *this; }
+	Vector3& operator*=(const Vector3& other) { x *= other.x; y *= other.y; z *= other.z; return *this; }
+	Vector3& operator/=(const Vector3& other) { x /= other.x; y /= other.y; z /= other.z; return *this; }
+};
 
 struct Vector4 {
 	float x;
@@ -12,43 +45,9 @@ struct Vector4 {
 	float w;
 };
 
-struct Vector3 {
-	float x;
-	float y;
-	float z;
-
-
-	Vector3 operator+(const Vector3& other) const { return { x + other.x, y + other.y, z + other.z }; }
-	Vector3 operator-(const Vector3& other) const { return { x - other.x, y - other.y, z - other.z }; }
-	Vector3 operator-() const {return Vector3(-x, -y, -z);}
-	Vector3 operator*(const Vector3& other) const { return Vector3(x * other.x, y * other.y, z * other.z); }
-	Vector3 operator*(float scalar) const { return Vector3(x * scalar, y * scalar, z * scalar); }
-	Vector3 operator/(const Vector3& other) const { return { x / other.x, y / other.y, z / other.z }; }
-	Vector3& operator=(const Vector3& other) { x = other.x; y = other.y; z = other.z; return *this; }
-	Vector3& operator+=(const Vector3& other) { x += other.x; y += other.y; z += other.z; return *this; }
-	Vector3& operator-=(const Vector3& other) { x -= other.x; y -= other.y; z -= other.z; return *this; }
-	Vector3& operator*=(const Vector3& other) { x *= other.x; y *= other.y; z *= other.z; return *this; }
-	Vector3& operator/=(const Vector3& other) { x /= other.x; y /= other.y; z /= other.z; return *this; }
-};
-struct Vector2
-{
-	float x;
-	float y;
-};
-
-struct Vector2i
-{
-	int x;
-	int y;
-};
-
-struct PolarCoordinates {
-	Vector3 offset;
-	float radius;
-	float theta;
-	float phi;
-};
-
+//
+// Matrix structs
+//
 
 struct Matrix4x4 {
 	float m[4][4] = {
@@ -127,31 +126,127 @@ struct Matrix4x4 {
 	}
 };
 
+//
+// Object and Camera structs
+//
 
-/// <summary>
-/// 3Dオブジェクトのスケール、回転、平行移動を表す構造体です。
-/// </summary>
-struct Transform
-{
-	Vector3 scale;
-	Vector3 rotate;
-	Vector3 translate;
+struct Transform {
+	Vector3 scale = { 1.0f,1.0f,1.0f };
+	Vector3 rotate = { 0.0f,0.0f,0.0f };
+	Vector3 translate = { 0.0f,0.0f,0.0f };
 };
 
-struct TransformationMatrix
-{
+struct sCamera {
+	Vector3 pos;
+	Vector3 scale;
+	Vector3 rotate;
+};
+
+struct Object {
+	Vector3 pos;
+	Vector3 scale;
+	Vector3 rotate;
+};
+
+//
+// Shape and Geometry structs
+//
+
+struct sSphere {
+	Vector3 center;
+	float radius;
+};
+
+struct Plane {
+	Vector3 normal;
+	float distance;
+};
+
+struct sLine {
+	Vector3 origin;
+	Vector3 diff;
+};
+
+struct Ray {
+	Vector3 origin;
+	Vector3 diff;
+};
+
+struct Segment {
+	Vector3 origin;
+	Vector3 diff;
+};
+
+struct sTriangle {
+	Vector3 vertices[3];
+};
+
+struct AABB {
+	Vector3 min;
+	Vector3 max;
+};
+
+struct BezierCurve {
+	Vector3 start;
+	Vector3 controlPoint;
+	Vector3 end;
+};
+
+struct PolarCoordinates {
+	Vector3 offset;
+	float radius;
+	float theta;
+	float phi;
+};
+
+//
+// Physics structs
+//
+
+struct Spring {
+	Vector3 anchor;
+	float naturalLength;
+	float stiffness;
+};
+
+struct Ball {
+	sSphere shape;
+	Vector3 velosity;
+	Vector3 acceleration;
+	float mass;
+	unsigned int color;
+};
+
+struct Pundulm {
+	Vector3 anchor;
+	float lengrh;
+	float angle;
+	float angularVelocity;
+	float angularAcceleration;
+};
+
+struct ConicalPendulum {
+	Vector3 anchor;
+	float lengrh;
+	float halfApexAngle;
+	float angle;
+	float angularVelocity;
+};
+
+//
+// Rendering structs
+//
+
+struct TransformationMatrix {
 	Matrix4x4 WVP;
 	Matrix4x4 World;
 };
 
-struct LineTransformationMatrix
-{
+struct LineTransformationMatrix {
 	Matrix4x4 WVP;
 };
 
-
-struct VertexData
-{
+struct VertexData {
 	Vector4 position;
 	Vector2 texcoord;
 	Vector3 normal;
@@ -162,8 +257,7 @@ struct LineVertexData {
 	Vector4 color;
 };
 
-struct Material
-{
+struct Material {
 	Vector4 color;
 	int32_t endbleLighting;
 	float paddinmg[3];
@@ -171,25 +265,16 @@ struct Material
 };
 
 struct DirectionalLight {
-	Vector4 color;//ライトの色
-	Vector3 direction;//ライトの向き
-	float intensity;//輝度
+	Vector4 color;
+	Vector3 direction;
+	float intensity;
 };
 
-struct MaterialData
-{
+struct MaterialData {
 	std::string textureDilePath;
 };
 
-struct ModelData
-{
+struct ModelData {
 	std::vector<VertexData> vertices;
 	MaterialData material;
 };
-
-struct Segment {
-	Vector3 origin; //始点
-	Vector3 diff;//終点への差分
-};
-
-

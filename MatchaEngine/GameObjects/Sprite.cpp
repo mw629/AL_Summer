@@ -59,7 +59,7 @@ void Sprite::CreateVertexData()
 	//1頂点当たりのサイズ
 	vertexBufferView_.StrideInBytes = sizeof(VertexData);
 
-
+	
 	//頂点データを設定する//
 	
 	vertexResource_->Map(0, nullptr, reinterpret_cast<void**>(&vertexData_));
@@ -124,6 +124,13 @@ void Sprite::SettingWvp()
 	*wvpData_ = { worldViewProjectionMatrix,worldMatrix };
 }
 
+void Sprite::SettingWvp(Matrix4x4 viewMatrix){
+Matrix4x4 projectionMatri = MakeOrthographicMatrix(0, 1280.0f, 0.0f, 720.0f,0.0f, 100.0f);
+Matrix4x4 worldMatrixObj = MakeAffineMatrix(transform_.translate, transform_.scale, transform_.rotate);
+Matrix4x4 worldViewProjectionMatrixObj = MultiplyMatrix4x4(worldMatrixObj, MultiplyMatrix4x4(viewMatrix, projectionMatri));
+*wvpData_ = { worldViewProjectionMatrixObj,worldMatrixObj };
+}
+
 void Sprite::SetSize(Vector2 leftTop, Vector2 rigthBottom)
 {
 	//１枚目の三角形
@@ -144,8 +151,18 @@ void Sprite::SetUVTransfotm(Transform transform)
 	material_->SetUVMaterial(UVMatrix);
 }
 
-void Sprite::SetTransfotm(Transform transform) {
+void Sprite::SetTexture(D3D12_GPU_DESCRIPTOR_HANDLE textureSrvHandleGPU)
+{
+	textureSrvHandleGPU_ = textureSrvHandleGPU;
+}
+
+void Sprite::SetTransform(Transform transform) {
 	transform_.translate = transform.translate;
 	transform_.scale = transform.scale;
 	transform_.rotate = transform.rotate;
+}
+
+void Sprite::SetColor(Vector4 Color)
+{
+	material_->SetColor(Color);
 }

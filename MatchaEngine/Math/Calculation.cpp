@@ -400,6 +400,33 @@ Matrix4x4 MakeAffineMatrix(Vector3 pos, Vector3 scale, Vector3 angle)
 	return result;
 }
 
+Matrix4x4 MakeAffineMatrix(Transform transform)
+{
+	Matrix4x4 result;
+	Matrix4x4 scaleMatrix = Scale(transform.scale);
+	Matrix4x4 rotationMatrix = Rotation(transform.rotate);
+	Matrix4x4 translationMatrix = Translation(transform.translate);
+
+	result.m[0][0] = scaleMatrix.m[0][0] * rotationMatrix.m[0][0];
+	result.m[0][1] = scaleMatrix.m[0][0] * rotationMatrix.m[0][1];
+	result.m[0][2] = scaleMatrix.m[0][0] * rotationMatrix.m[0][2];
+
+	result.m[1][0] = scaleMatrix.m[1][1] * rotationMatrix.m[1][0];
+	result.m[1][1] = scaleMatrix.m[1][1] * rotationMatrix.m[1][1];
+	result.m[1][2] = scaleMatrix.m[1][1] * rotationMatrix.m[1][2];
+
+	result.m[2][0] = scaleMatrix.m[2][2] * rotationMatrix.m[2][0];
+	result.m[2][1] = scaleMatrix.m[2][2] * rotationMatrix.m[2][1];
+	result.m[2][2] = scaleMatrix.m[2][2] * rotationMatrix.m[2][2];
+
+	result.m[3][0] = translationMatrix.m[3][0];
+	result.m[3][1] = translationMatrix.m[3][1];
+	result.m[3][2] = translationMatrix.m[3][2];
+	result.m[3][3] = 1.0f;
+
+	return result;
+}
+
 Matrix4x4 MakeAffineMatrix(Matrix4x4 translationMatrix, Vector3 scale, Matrix4x4 rotationMatrix)
 {
 	Matrix4x4 result;
@@ -480,3 +507,13 @@ Matrix4x4 MakeLookAtLH(const Vector3& eye, const Vector3& target, const Vector3&
 
 	return result;
 }
+
+bool IsCollision(const AABB& aabb1, const AABB& aabb2) {
+	if (aabb1.min.x <= aabb2.max.x && aabb1.max.x >= aabb2.min.x &&
+		aabb1.min.y <= aabb2.max.y && aabb1.max.y >= aabb2.min.y &&
+		aabb1.min.z <= aabb2.max.z && aabb1.max.z >= aabb2.min.z) {
+		return true;
+	}
+	return false;
+}
+

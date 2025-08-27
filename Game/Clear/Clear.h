@@ -2,20 +2,22 @@
 #include <Engine.h>
 #include "../Fede.h"
 
-class TitleScene
+class Clear
 {
 private:
 
 	Fede* fede_;
 
+	Sprite* backScreen;
+	Transform uvTransform = { {1.0f,1.0f,1.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f} };
+
 	Model* text;
 	Transform transform = { {1.0f,1.0f,1.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f} };
-
 	Transform camera;
+
 	bool isFinish;
 
 public:
-	void ImGui();
 
 	void Initialize();
 

@@ -26,19 +26,19 @@ void Camera::Update(Player *player)
 	}
 	else {
 		
-		if (input.PressKey(DIK_LEFT)) {
+		if (Input::PressKey(DIK_LEFT)) {
 			debugcameraTransform.translate.x -= 0.5f;
 		}
-		if (input.PressKey(DIK_RIGHT)) {
+		if (Input::PressKey(DIK_RIGHT)) {
 			debugcameraTransform.translate.x += 0.5f;
 		}
-		if (input.PressKey(DIK_UP)) {
+		if (Input::PressKey(DIK_UP)) {
 			debugcameraTransform.translate.y += 0.5f;
 		}
-		if (input.PressKey(DIK_DOWN)) {
+		if (Input::PressKey(DIK_DOWN)) {
 			debugcameraTransform.translate.y -= 0.5f;
 		}
-		if (input.PressKey(DIK_R)) {
+		if (Input::PressKey(DIK_R)) {
 			 debugcameraTransform = cameraTransform;
 		}
 		

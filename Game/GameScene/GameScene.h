@@ -4,17 +4,30 @@
 #include "Entiti/Player.h"
 #include "MapData/MapChip.h"
 #include "Camera.h"
+#include "Entiti/Goal.h"
+#include "../Fede.h"
+#include "../Timer.h"
+
+
 
 class GameScene {
 private:
-    Camera* camera;
 
-    SkyDome* skyDome;
-    MapChip* map;
+    
+    Fede* fede_;
+    Timer* timer_;
 
-    Player* player;
+    Camera* camera_;
 
-    bool isFinish = false;
+    SkyDome* skyDome_;
+    MapChip* map_;
+
+    Player* player_;
+
+    Goal* goal_;
+
+    bool isClear_ =false;
+    bool isFinish_ = false;
 
 public:  
     GameScene();
@@ -26,5 +39,12 @@ public:
     void Update();  
     void Draw();  
 
-    bool IsFinished() { return isFinish; }
+    void CheckAllCollisions();
+
+
+
+    bool IsFinished() { return isFinish_; }
+
+    bool IsClear() { return isClear_; }
+
 };

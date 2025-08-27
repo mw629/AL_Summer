@@ -1,6 +1,10 @@
 #pragma once
 #include <Engine.h>
 
+class Enemy;
+class Goal;
+
+
 class Player
 {
 private:
@@ -28,9 +32,12 @@ public:
 
 
 	bool IsHitBlock(Vector3 pos, const std::vector<std::vector<int>>& map);
+	void OnCollision(const Enemy* enemy);
 
 
 	void Draw();
+
+	AABB GetAABB();
 
 	Vector3 GetPos() { return transform.translate; }
 };

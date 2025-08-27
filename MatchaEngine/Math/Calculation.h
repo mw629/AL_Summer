@@ -194,6 +194,7 @@ Matrix4x4 IdentityMatrix();
 /// <returns>アフィン行列</returns>
 Matrix4x4 MakeAffineMatrix(Vector3 pos, Vector3 scale, Vector3 angle);
 
+Matrix4x4 MakeAffineMatrix(Transform transform);
 
 Matrix4x4 MakeAffineMatrix(Matrix4x4 translationMatrix, Vector3 scale, Matrix4x4 rotationMatrix);
 
@@ -233,3 +234,6 @@ Matrix4x4 MakeViewPortMatrix(float width, float height, float left, float top, f
 
 
 Matrix4x4 MakeLookAtLH(const Vector3& eye, const Vector3& target, const Vector3& up);
+
+
+bool IsCollision(const AABB& aabb1, const AABB& aabb2);

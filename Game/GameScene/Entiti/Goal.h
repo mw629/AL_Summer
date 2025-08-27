@@ -6,7 +6,9 @@ class Goal
 private:
 
 	Model* goalModel;
-	Transform transform = { {1.0f, 1.0f, 1.0f}, { 0.0f,0.0f,0.0f }, { 1.0f,1.0f,0.0f } };
+	Transform transform = { {1.0f, 1.0f, 0.8f}, { 0.0f,-0.5f*3.14f,0.0f }, { 1.0f,1.0f,0.0f } };
+
+	float size = 2.0f;
 
 public:
 
@@ -16,5 +18,6 @@ public:
 
 	void Draw();
 
+	AABB GetAABB();
 };
 

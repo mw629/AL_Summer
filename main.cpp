@@ -44,7 +44,7 @@ std::unique_ptr<Debug> leakChacker = std::make_unique<Debug>();
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 
-#include "MatchaEngine/Engine.h"
+#include <Engine.h>
 #include "MatchaEngine/Input/GamePadInput.h"
 
 
@@ -90,6 +90,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			
 			engine.get()->NewFrame();
 
+			engine.get()->Debug();
+
 			game->Update();
 
 			//ゲーム処理
@@ -100,6 +102,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			engine.get()->PreDraw();
 
 			game->Draw();
+
 			engine.get()->PostDraw();
 
 			engine.get()->EndFrame();
