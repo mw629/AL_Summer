@@ -52,7 +52,7 @@
 //Math
 
 #include "Math/Calculation.h"
-
+#include "Math/Easing.h"
 //Resource
 
 #include "Resource/Audio.h"

@@ -9,6 +9,11 @@ class Player
 {
 private:
 
+	enum class LRDirection {
+		kRight,
+		kLeft,
+	};
+	LRDirection lrDirection_ = LRDirection::kRight;
 
 	std::vector<std::vector<int>> mapData_;
 	float blockSize = 2.0f;
@@ -18,8 +23,23 @@ private:
 	Vector3 velocity = { 0.0f,0.0f,0.0f };
 	float playerSize = 2.0f;
 
-	bool isOnGround=false;
+	enum AttackPhase {
+		Charge,     // 溜め
+		Rush,       // 突進
+		echoEffect, // 余韻
+	};
+	AttackPhase attackPhase;
+	Vector3 attackVelocity = { 0.8f, 0.0f, 0.0f };
+	bool attackFlag_;
+	float attackCount_;
+	float attackMaxFrame = 0.8f;
+	float chargeTime = 0.05f;
+	float rushTime = 0.1f;
+	float echoEffectTime = 0.05f;
 
+
+	bool isOnGround=false;
+	bool isAttack = false;
 
 public:
 	~Player();
@@ -30,6 +50,9 @@ public:
 
 	void Move();
 
+	void Attack();
+
+	void Turning();
 
 	bool IsHitBlock(Vector3 pos, const std::vector<std::vector<int>>& map);
 	void OnCollision(const Enemy* enemy);

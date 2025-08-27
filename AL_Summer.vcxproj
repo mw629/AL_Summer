@@ -91,6 +91,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="MatchaEngine\Math\Easing.cpp" />
     <ClCompile Include="Game\Fede.cpp" />
     <ClCompile Include="Game\Clear\Clear.cpp" />
     <ClCompile Include="Game\GameScene\Camera.cpp" />
@@ -179,6 +180,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MatchaEngine\Math\Easing.h" />
     <ClInclude Include="Game\Fede.h" />
     <ClInclude Include="Game\Clear\Clear.h" />
     <ClInclude Include="Game\GameScene\Camera.h" />

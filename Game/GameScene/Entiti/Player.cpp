@@ -19,11 +19,20 @@ void Player::Initialize(Vector3 pos, std::vector<std::vector<int>> mapData) {
 
 void Player::Update(Matrix4x4 viewMatrix) {
 
-	Move();
-	
+
+
+	if (isAttack) {
+		Attack();
+	}
+	else {
+		Move();
+	}
 	// 重力
 	velocity.y -= 0.02f;
 	velocity.x *= 0.95f;
+
+	Turning();
+
 	// トンネリング対策のため細かく分割移動
 	int steps = 10;
 	Vector3 move = velocity;
@@ -87,7 +96,7 @@ void Player::Update(Matrix4x4 viewMatrix) {
 		}
 
 	}
-	
+
 	playerModel->SetTransform(transform);
 	playerModel->SettingWvp(viewMatrix);
 }
@@ -105,13 +114,85 @@ void Player::Move()
 		velocity.y = 0.5f;
 		isOnGround = false;
 	}
+	if (Input::PressKey(DIK_SPACE) && !isAttack) {
+		isAttack = true;
+	}
+
+}
+
+void Player::Attack()
+{
+	// 予備動作
+	attackCount_ += 1.0f / 60.0f;
+
+	switch (attackPhase) {
+	case Player::Charge: {
+		isAttack = true;
+		float t = static_cast<float>(attackCount_) / chargeTime;
+		transform.scale.z = EaseOut(1.0f, 0.3f, t);
+		transform.scale.y = EaseOut(1.0f, 1.6f, t);
+		if (attackCount_ >= chargeTime) {
+			attackPhase = AttackPhase::Rush;
+			attackCount_ = 0;
+		}
+	} break;
+	case Player::Rush: {
+		float t = static_cast<float>(attackCount_) / rushTime;
+		transform.scale.z = EaseOut(0.3f, 1.3f, t);
+		transform.scale.y = EaseIn(1.6f, 0.7f, t);
+
+		if (attackCount_ >= rushTime) {
+			attackPhase = AttackPhase::echoEffect;
+			attackCount_ = 0;
+		}
+
+		if (lrDirection_ == LRDirection::kLeft) {
+			velocity = attackVelocity;
+			velocity.x *= -1.0f;
+		}
+		else {
+			velocity = attackVelocity;
+		}
+
+	} break;
+	case Player::echoEffect: {
+		float t = static_cast<float>(attackCount_) / echoEffectTime;
+		transform.scale.z = EaseOut(1.3f, 1.0f, t);
+		transform.scale.y = EaseOut(0.7f, 1.0f, t);
+
+		if (attackCount_ >= echoEffectTime) {
+			isAttack = false;
+			attackCount_ = 0;
+			attackPhase = Player::Charge;
+		}
+	}
+	 break;
+	}
+}
+
+void Player::Turning()
+{
+	// 移動方向に応じて向きを変える
+	float targetRotationY = transform.rotate.y;
+	if (velocity.x > 0.01f) {
+		targetRotationY = 0.0f; // 右向き
+		lrDirection_ = LRDirection::kRight;
+	}
+	else if (velocity.x < -0.01f) {
+		targetRotationY = 3.14159f; // 左向き（πラジアン）
+		lrDirection_ = LRDirection::kLeft;
+	}
+
+	// 線形補間（Lerp）で回転
+	float rotationSpeed = 0.1f; // 調整可能
+	transform.rotate.y = transform.rotate.y + (targetRotationY - transform.rotate.y) * rotationSpeed;
 
 }
 
 
 bool Player::IsHitBlock(Vector3 pos, const std::vector<std::vector<int>>& map) {
-	int mapX = static_cast<int>((pos.x ) / 2.0f);
-	int mapY = static_cast<int>((pos.y ) / 2.0f);
+	int mapX = static_cast<int>((pos.x) / 2.0f);
+	int mapY = static_cast<int>((pos.y) / 2.0f);
 
 	if (mapY < 0 || mapY >= map.size() || mapX < 0 || mapX >= map[0].size()) {
 		return false;

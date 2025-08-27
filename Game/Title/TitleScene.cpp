@@ -9,9 +9,6 @@ void TitleScene::ImGui() {
 	ImGui::DragFloat3("Translate", &transform.translate.x, 0.1f);
 	ImGui::DragFloat3("Rotate", &transform.rotate.x, 0.1f);
 	ImGui::DragFloat3("Scale", &transform.scale.x, 0.1f);
-
-	ImGui::InputInt("time", &a);
-	ImGui::Checkbox("flag", &b);
 #endif 
 }
 
