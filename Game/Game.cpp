@@ -87,7 +87,7 @@ void Game::UpdateScene() {
 		clearScene->Update();
 		break;
 	case Scene::kGameOver:
-
+		gameOver->Update();
 		break;
 	default:
 		break;
@@ -106,6 +106,9 @@ void Game::DrawScene() {
 		break;
 	case Scene::kClear:
 		clearScene->Draw();
+		break;
+	case Scene::kGameOver:
+		gameOver->Draw();
 		break;
 	default:
 		break;

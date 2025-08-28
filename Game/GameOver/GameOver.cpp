@@ -20,7 +20,7 @@ void GameOver::Initialize() {
 
 	std::unique_ptr<Texture> texture = std::make_unique<Texture>();
 
-	ModelData modelData = LoadObjFile("resources/Title/TitleText", "TitleText.obj");
+	ModelData modelData = LoadObjFile("resources/GameOver", "GameOver.obj");
 	int index = texture->CreateTexture(modelData.material.textureDilePath);
 	text = new Model();
 	text->Initialize(modelData, texture->TextureData(index));

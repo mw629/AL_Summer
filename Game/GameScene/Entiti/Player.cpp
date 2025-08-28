@@ -55,6 +55,8 @@ void Player::Update(Matrix4x4 viewMatrix) {
 			0.0f
 		};
 
+		
+
 		// Y方向（上下判定＆着地時の位置補正）
 		transform.translate.y += stepMove.y;
 
@@ -122,7 +124,7 @@ void Player::Move()
 		velocity.x += 1.0f / 60.0f;
 	}
 	if (Input::PushKey(DIK_W) && isOnGround) {
-		velocity.y = 0.5f;
+		velocity.y = 0.4f;
 		isOnGround = false;
 	}
 	if (Input::PressKey(DIK_SPACE) && !isAttack && attackLimit != 0) {
@@ -225,7 +227,9 @@ void Player::OnCollision(const Enemy* enemy) {
 
 
 void Player::Draw() {
-	Draw::DrawObj(playerModel);
+	if (!isDead_) {
+		Draw::DrawObj(playerModel); 
+	}
 	Draw::DrawSprite(attackLimitSprite);
 }
 
