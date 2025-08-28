@@ -2,6 +2,7 @@
 #include "GameScene/GameScene.h"
 #include "Title/TitleScene.h"
 #include "Clear/Clear.h"
+#include "GameOver/GameOver.h"
 
 class Game
 {
@@ -21,6 +22,7 @@ private:
     TitleScene* titleScene;
 	GameScene* gameScene;
     Clear* clearScene;
+    GameOver* gameOver;
 
 public:
 

@@ -1,6 +1,8 @@
 #pragma once
 #include <Engine.h>
 
+class Player;
+
 class Enemy
 {
 private:
@@ -8,7 +10,9 @@ private:
 
 	Model* enemy_;
 	Transform transform = { {1.0f, 1.0f, 1.0f}, { 0.0f,0.0f,0.0f }, { 1.0f,1.0f,0.0f } };
+	float size = 2.0f;
 
+	bool isDead;
 
 public:
 	
@@ -18,5 +22,9 @@ public:
 
 	void Draw();
 
+	bool IsDeaded() { return isDead; }
+
+	void OnCollision(Player* player);
+	AABB GetAABB();
 };
 

@@ -8,6 +8,7 @@
 #include "Entiti/Goal.h"
 #include "../Fede.h"
 #include "../Timer.h"
+#include "Entiti/DeathParticles.h"
 
 
 
@@ -24,12 +25,15 @@ private:
     MapChip* map_;
 
     Player* player_;
+    DeathParticles* dethPa;
 
     std::list<Enemy*> enemies_;
 
     Goal* goal_;
 
+  
     bool isClear_ =false;
+    bool isDead_ = false;
     bool isFinish_ = false;
 
 public:  
@@ -42,12 +46,14 @@ public:
     void Update();  
     void Draw();  
 
+    void Reset();
+
     void CheckAllCollisions();
 
     void EnemyList(std::vector<std::vector<int>> mapData);
 
     bool IsFinished() { return isFinish_; }
-
+    bool IsDeaded() { return isDead_; }
     bool IsClear() { return isClear_; }
 
 };

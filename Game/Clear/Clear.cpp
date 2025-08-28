@@ -33,13 +33,16 @@ void Clear::Update() {
 	uvTransform.translate.x += 1.0f / (60.0f * 3.0f);
 	backScreen->SetUVTransfotm(uvTransform);
 
-
 	Matrix4x4 viewMatrix = Inverse(MakeAffineMatrix(camera));
 
 	backScreen->SettingWvp();
 
 	text->SetTransform(transform);
 	text->SettingWvp(viewMatrix);
+
+	if (Input::PushKey(DIK_SPACE)) {
+		isFinish = true;
+	}
 
 }
 

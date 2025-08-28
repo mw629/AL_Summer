@@ -216,9 +216,9 @@ bool Player::IsHitBlock(Vector3 pos, const std::vector<std::vector<int>>& map) {
 void Player::OnCollision(const Enemy* enemy) {
 	(void)enemy;
 	// velocity_ =Add(velocity_,knockback);
-	/*if (behavior_ != Behavior::kAttack) {
+	if (!isAttack) {
 		isDead_ = true;
-	}*/
+	}
 }
 
 

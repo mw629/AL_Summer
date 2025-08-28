@@ -20,12 +20,11 @@ void Texture::Initalize(ID3D12Device* device, ID3D12GraphicsCommandList* command
 
 int Texture::CreateTexture(const std::string& filePath)
 {
-	//Textureを読み込んで転送する//
-	DirectX::ScratchImage mipImages = LoadTexture(filePath);
-
 	if (textureLoader_->CheckFilePath(filePath) > 0) {
 		return textureLoader_->CheckFilePath(filePath);
 	}
+	//Textureを読み込んで転送する//
+	DirectX::ScratchImage mipImages = LoadTexture(filePath);
 
 	const DirectX::TexMetadata& metaData = mipImages.GetMetadata();
 	Microsoft::WRL::ComPtr<ID3D12Resource>  textureResource = CreateTextureResource(device_, metaData);

@@ -14,10 +14,6 @@ Game::~Game()
 void Game::Initialize() {
 	titleScene = new TitleScene();
 	titleScene->Initialize();
-	gameScene = new GameScene();
-	gameScene->Initialize();
-	clearScene = new Clear();
-	clearScene->Initialize();
 }
 
 void Game::Update() {
@@ -36,30 +32,41 @@ void Game::ChangeScene() {
 		// シーンの更新
 		if (titleScene->IsFinished()) {
 			scene = Scene::kGame;
-			/*delete titleScene;
-			titleScene = nullptr;
-			gameScene = new GameScene;
-			gameScene->Initialize();*/
+			delete titleScene;
+			gameScene = new GameScene();
+			gameScene->Initialize();
 		}
 		break;
 	case Scene::kGame:
 		// シーンの更新
 		if (gameScene->IsClear()) {
 			scene = Scene::kClear;
-			/*delete gameScene;
-			gameScene = nullptr;
-			clearScene = new Clear;
-			clearScene->Initialize();*/
+			delete gameScene;
+			clearScene = new Clear();
+			clearScene->Initialize();
+		}
+		else if(gameScene->IsDeaded()) {
+			scene = Scene::kGameOver;
+			delete gameScene;
+			gameOver = new GameOver();
+			gameOver->Initialize();
 		}
 		break;
 	case Scene::kClear:
 		// シーンの更新
 		if (clearScene->IsFinished()) {
 			scene = Scene::kTitle;
-			/*delete clearScene;
-			clearScene = nullptr;
-			titleScene = new TitleScene;
-			titleScene->Initialize();*/
+			delete clearScene;
+			titleScene = new TitleScene();
+			titleScene->Initialize();
+		}
+		break;
+	case Scene::kGameOver:
+		if (gameOver->IsFinished()) {
+			scene = Scene::kTitle;
+			delete gameOver;
+			titleScene = new TitleScene();
+			titleScene->Initialize();
 		}
 		break;
 	default:
@@ -78,6 +85,9 @@ void Game::UpdateScene() {
 		break;
 	case Scene::kClear:
 		clearScene->Update();
+		break;
+	case Scene::kGameOver:
+
 		break;
 	default:
 		break;

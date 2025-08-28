@@ -44,6 +44,7 @@ private:
 
 	bool isOnGround=false;
 	bool isAttack = false;
+	bool isDead_ = false;
 
 public:
 	~Player();
@@ -65,6 +66,7 @@ public:
 	void Draw();
 
 	AABB GetAABB();
-
+	bool IsAttack() { return isAttack; }
+	bool IsDeaded() { return isDead_; }
 	Vector3 GetPos() { return transform.translate; }
 };

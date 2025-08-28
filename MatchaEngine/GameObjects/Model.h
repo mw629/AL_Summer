@@ -36,7 +36,7 @@ public:
 	void CreateVertexData();
 	void CreateWVP();
 
-	
+	void SetColor(Vector4 Color);
 	void SettingWvp(Matrix4x4 viewMatrix);
 	void SetTransform(Transform transform);
 
