@@ -14,6 +14,12 @@ void Enemy::Initialize(Vector3 pos) {
 }
 
 void Enemy::Update(Matrix4x4 viewMatrix) {
+	// 時間で角度を変える（sin波でゆらゆら）
+	static float t = 0.0f;
+	t += 0.1f/60.0f; // 速さ調整
+	transform.rotate.z = std::sin(t) * 0.2f; 
+
+
 	enemy_->SetTransform(transform);
 	enemy_->SettingWvp(viewMatrix);
 }

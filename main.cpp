@@ -56,7 +56,6 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 #pragma comment(lib,"xaudio2.lib")
 
 #include "Game/Game.h"
-#include "Game/GameScene/MapData/SkyDome.h"
 ///クラス///
 
 

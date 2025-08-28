@@ -8,6 +8,9 @@ class Game
 {
 private:
 
+    std::unique_ptr<Audio> audio;
+    int BGMHandle[4];
+
     enum Scene
     {
         kUnknown,

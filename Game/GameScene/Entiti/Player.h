@@ -45,6 +45,7 @@ private:
 	bool isOnGround=false;
 	bool isAttack = false;
 	bool isDead_ = false;
+	bool isGoal = false;
 
 public:
 	~Player();
@@ -61,8 +62,8 @@ public:
 
 	bool IsHitBlock(Vector3 pos, const std::vector<std::vector<int>>& map);
 	void OnCollision(const Enemy* enemy);
-
-
+	void OnCollision(const Goal* goal);
+	
 	void Draw();
 
 	AABB GetAABB();

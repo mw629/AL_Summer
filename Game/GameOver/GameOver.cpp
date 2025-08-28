@@ -18,6 +18,11 @@ void GameOver::Initialize() {
 	fede_->Initalize();
 	fede_->fedestate = Fede::FedeOut;
 
+	skyDome_ = new SkyDome();
+	skyDome_->Initialize();
+	skyDome_->SetColor({ 1.0f,0.4f,0.4f,1.0f });
+
+
 	std::unique_ptr<Texture> texture = std::make_unique<Texture>();
 
 	ModelData modelData = LoadObjFile("resources/GameOver", "GameOver.obj");
@@ -38,7 +43,7 @@ void GameOver::Update() {
 
 	Matrix4x4 viewMatrix = Inverse(MakeAffineMatrix(camera));
 
-
+	skyDome_->Update(viewMatrix);
 	text->SetTransform(transform);
 	text->SettingWvp(viewMatrix);
 
@@ -52,6 +57,6 @@ void GameOver::Update() {
 
 void GameOver::Draw() {
 	Draw::DrawObj(text);
-
+	skyDome_->Draw();
 	fede_->Draw();
 }

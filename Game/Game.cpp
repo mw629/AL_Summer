@@ -14,6 +14,14 @@ Game::~Game()
 void Game::Initialize() {
 	titleScene = new TitleScene();
 	titleScene->Initialize();
+	audio = std::make_unique<Audio>();
+	
+	audio->Initialize();
+	BGMHandle[0] = audio->Load("resources/Audio/BGM/sweet_pop.mp3");
+	BGMHandle[1] = audio->Load("resources/Audio/BGM/pop.mp3");
+	BGMHandle[2] = audio->Load("resources/Audio/BGM/Havefun.mp3");
+	BGMHandle[3] = audio->Load("resources/Audio/BGM/gameover.mp3");
+	audio->Play(BGMHandle[0], true, 1.0f);
 }
 
 void Game::Update() {
@@ -35,6 +43,8 @@ void Game::ChangeScene() {
 			delete titleScene;
 			gameScene = new GameScene();
 			gameScene->Initialize();
+			audio.get()->Stop(BGMHandle[0]);
+			audio->Play(BGMHandle[1], true, 1.0f);
 		}
 		break;
 	case Scene::kGame:
@@ -44,12 +54,16 @@ void Game::ChangeScene() {
 			delete gameScene;
 			clearScene = new Clear();
 			clearScene->Initialize();
+			audio.get()->Stop(BGMHandle[1]);
+			audio->Play(BGMHandle[2], true, 1.0f);
 		}
 		else if(gameScene->IsDeaded()) {
 			scene = Scene::kGameOver;
 			delete gameScene;
 			gameOver = new GameOver();
 			gameOver->Initialize();
+			audio.get()->Stop(BGMHandle[1]);
+			audio->Play(BGMHandle[3], true, 1.0f);
 		}
 		break;
 	case Scene::kClear:
@@ -59,6 +73,8 @@ void Game::ChangeScene() {
 			delete clearScene;
 			titleScene = new TitleScene();
 			titleScene->Initialize();
+			audio.get()->Stop(BGMHandle[2]);
+			audio->Play(BGMHandle[0], true, 1.0f);
 		}
 		break;
 	case Scene::kGameOver:
@@ -67,6 +83,8 @@ void Game::ChangeScene() {
 			delete gameOver;
 			titleScene = new TitleScene();
 			titleScene->Initialize();
+			audio.get()->Stop(BGMHandle[3]);
+			audio->Play(BGMHandle[0], true, 1.0f);
 		}
 		break;
 	default:
@@ -80,8 +98,8 @@ void Game::UpdateScene() {
 		titleScene->Update();
 		break;
 	case Scene::kGame:
-		gameScene->Update();
 
+		gameScene->Update();
 		break;
 	case Scene::kClear:
 		clearScene->Update();

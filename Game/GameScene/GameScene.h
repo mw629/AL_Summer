@@ -1,6 +1,4 @@
 #pragma once  
-#include "MapData/SkyDome.h"
-
 #include "Entiti/Player.h"
 #include "Entiti/Enemy.h"
 #include "MapData/MapChip.h"
@@ -9,12 +7,15 @@
 #include "../Fede.h"
 #include "../Timer.h"
 #include "Entiti/DeathParticles.h"
+#include "../SkyDome.h"
 
 
 
 class GameScene {
 private:
 
+
+   
     
     Fede* fede_;
     Timer* timer_;
@@ -30,7 +31,6 @@ private:
     std::list<Enemy*> enemies_;
 
     Goal* goal_;
-
   
     bool isClear_ =false;
     bool isDead_ = false;

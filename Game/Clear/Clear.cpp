@@ -7,6 +7,10 @@ void Clear::Initialize() {
 	fede_->Initalize();
 	fede_->fedestate = Fede::FedeOut;
 
+	skyDome_ = new SkyDome();
+	skyDome_->Initialize();
+	skyDome_->SetColor({ 0.3f,0.9f,0.9f,1.0f });
+
 	backScreen = new Sprite();
 	Texture* texture = new Texture();
 	int backImage = texture->CreateTexture("resources/Clear/BackScreen.png");
@@ -35,6 +39,8 @@ void Clear::Update() {
 
 	Matrix4x4 viewMatrix = Inverse(MakeAffineMatrix(camera));
 
+	skyDome_->Update(viewMatrix);
+
 	backScreen->SettingWvp();
 
 	text->SetTransform(transform);
@@ -48,6 +54,6 @@ void Clear::Update() {
 
 void Clear::Draw() {
 	Draw::DrawObj(text);
-
+	skyDome_->Draw();
 	fede_->Draw();
 }

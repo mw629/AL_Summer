@@ -7,7 +7,7 @@ private:
 
 	Model* skydomeModel;
 	Transform objTransform = { {1.0f, 1.0f, 1.0f}, { 0.0f,0.0f,0.0f }, { 0.0f,0.0f,0.0f } };
-
+	
 
 public:
 	~SkyDome();
@@ -18,6 +18,7 @@ public:
 
 	void Draw();
 
+	void SetColor(Vector4 color) { skydomeModel->SetColor(color); };
 
 };
 

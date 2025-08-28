@@ -12,6 +12,8 @@ private:
 	Transform transform = { {1.0f, 1.0f, 1.0f}, { 0.0f,0.0f,0.0f }, { 1.0f,1.0f,0.0f } };
 	float size = 2.0f;
 
+	bool isMove;
+
 	bool isDead;
 
 public:

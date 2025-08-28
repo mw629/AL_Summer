@@ -109,8 +109,12 @@ void Player::Update(Matrix4x4 viewMatrix) {
 		}
 
 	}
+
+
 	attackLimitSprite->SetTexture(texture->TextureData(attackLimitImage[attackLimit]));
-	playerModel->SetTransform(transform);
+	if (!isGoal) {
+		playerModel->SetTransform(transform);
+	}
 	playerModel->SettingWvp(viewMatrix);
 }
 
@@ -222,6 +226,13 @@ void Player::OnCollision(const Enemy* enemy) {
 		isDead_ = true;
 	}
 }
+
+void Player::OnCollision(const Goal* goal)
+{
+	(void)goal;
+	isGoal = true;
+}
+
 
 
 

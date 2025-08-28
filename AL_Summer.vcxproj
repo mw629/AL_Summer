@@ -151,7 +151,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="MatchaEngine\Graphics\ViewportScissor.cpp" />
     <ClCompile Include="MatchaEngine\GameObjects\Triangle.cpp" />
     <ClCompile Include="Game\GameScene\Entiti\Player.cpp" />
-    <ClCompile Include="Game\GameScene\MapData\SkyDome.cpp" />
+    <ClCompile Include="Game\SkyDome.cpp" />
     <ClCompile Include="Game\Title\TitleScene.cpp" />
     <ClCompile Include="Game\Timer.cpp" />
   </ItemGroup>
@@ -243,7 +243,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="MatchaEngine\Graphics\ViewportScissor.h" />
     <ClInclude Include="MatchaEngine\GameObjects\Triangle.h" />
     <ClInclude Include="Game\GameScene\Entiti\Player.h" />
-    <ClInclude Include="Game\GameScene\MapData\SkyDome.h" />
+    <ClInclude Include="Game\SkyDome.h" />
     <ClInclude Include="Game\Title\TitleScene.h" />
     <ClInclude Include="Game\Timer.h" />
   </ItemGroup>

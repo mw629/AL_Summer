@@ -58,7 +58,7 @@ void GameScene::Initialize() {
 
 	camera_ = new Camera();
 	camera_->Initialize();
-
+	
 }
 
 void GameScene::Update() {
